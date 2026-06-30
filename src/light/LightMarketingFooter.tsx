@@ -60,10 +60,10 @@ export function LightMarketingFooter({ variant = "theme" }: LightMarketingFooter
                     Legal
                   </p>
                   <div className="content-stretch relative flex flex-col items-start gap-[20px] text-center">
-                    <a href="/privacy-policy.html" className={linkClass}>
+                    <a href="/privacy-policy" className={linkClass}>
                       Privacy Policy
                     </a>
-                    <a href="/terms-service.html" className={linkClass}>
+                    <a href="/terms-service" className={linkClass}>
                       Terms of Services
                     </a>
                   </div>
