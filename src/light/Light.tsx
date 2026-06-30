@@ -694,7 +694,6 @@ function Group1() {
       className="col-1 grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-0 mt-0 place-items-start relative row-1 no-underline"
       desktopDisplayClassName="hidden min-[768px]:inline-grid"
       mobileDisplayClassName="inline-grid min-[768px]:hidden"
-      showAvatarWhenAuthenticated
     >
       <div className="bg-[#2466ff] col-1 h-[40px] ml-0 mt-0 rounded-[30px] row-1 w-[100px]" />
       <div className="capitalize col-1 flex flex-col font-['Poppins:Medium',sans-serif] h-[19px] justify-center ml-[15px] mt-[10px] not-italic relative row-1 text-[16px] text-center text-white w-[69px]">
@@ -1182,7 +1181,6 @@ export function MobileHeroSection() {
         </a>
         <MarketingAuthLink
           className="inline-flex h-[38px] w-[78px] shrink-0 items-center justify-center rounded-[30px] bg-[#2466ff] px-0 font-['Poppins:Medium',sans-serif] text-[15px] text-white no-underline shadow-none"
-          showAvatarWhenAuthenticated
         >
           Sign In
         </MarketingAuthLink>

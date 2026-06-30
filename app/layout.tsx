@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
   authors: [{ name: "Viznow" }],
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },

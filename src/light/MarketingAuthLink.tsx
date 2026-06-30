@@ -9,7 +9,6 @@ type MarketingAuthLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "hre
   mobileClassName?: string;
   desktopDisplayClassName?: string;
   mobileDisplayClassName?: string;
-  showAvatarWhenAuthenticated?: boolean;
 };
 
 function withNoFollow(rel: string | undefined): string {
@@ -29,7 +28,6 @@ export function MarketingAuthLink({
   mobileClassName,
   desktopDisplayClassName = "hidden min-[768px]:inline-flex",
   mobileDisplayClassName = "inline-flex min-[768px]:hidden",
-  showAvatarWhenAuthenticated: _showAvatarWhenAuthenticated = false,
   rel,
   ...props
 }: MarketingAuthLinkProps) {

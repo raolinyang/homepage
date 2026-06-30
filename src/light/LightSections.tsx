@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { APP_SIGN_IN_URL } from "@/lib/links";
 import { cn } from "@/lib/utils";
 import { LightMarketingFooter } from "./LightMarketingFooter";
 import { LightSixWaysSection } from "./LightSixWaysSection";
@@ -116,34 +115,25 @@ const LIGHT_REVIEWS_MARQUEE: LightReviewMarqueeEntry[] = [
   },
 ];
 
-/**
- * Real portrait JPEGs from randomuser.me (Pravatar often 403s behind Cloudflare).
- * Deterministic per `name`; optional `salt` rotates the portrait on load error.
- */
-function lightReviewMarqueeAvatarUrl(name: string, salt = 0): string {
-  const seed = `${name.trim()}:${salt}`;
+function lightReviewMarqueeAvatarUrl(name: string): string {
+  const seed = name.trim();
   let h = 2166136261;
   for (let i = 0; i < seed.length; i += 1) {
     h ^= seed.charCodeAt(i);
     h = Math.imul(h, 16777619);
   }
   const n = Math.abs(h);
-  const pool = n % 2 === 0 ? "men" : "women";
-  const id = n % 100;
-  return `https://randomuser.me/api/portraits/${pool}/${id}.jpg`;
+  return `/images/avatar_${(n % 16) + 1}.png`;
 }
 
 function ReviewMarqueeAvatar({ name }: { name: string }) {
-  const [salt, setSalt] = useState(0);
-  const src = lightReviewMarqueeAvatarUrl(name, salt);
   return (
     <img
       alt=""
       className="pointer-events-none absolute inset-0 size-full max-w-none rounded-[200px] object-cover"
-      src={src}
+      src={lightReviewMarqueeAvatarUrl(name)}
       loading="lazy"
       decoding="async"
-      onError={() => setSalt((s) => (s < 24 ? s + 1 : s))}
     />
   );
 }
