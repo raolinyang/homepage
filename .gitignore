@@ -1,0 +1,58 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+dist-ssr
+*.local
+coverage
+*.tsbuildinfo
+
+# Environment variables
+# - 不提交包含私密信息的本地 env（如 token、私钥等）
+.env
+.env.*
+.env.local
+.env.*.local
+.envrc
+!.env.example
+# - 真实环境文件在本地或 Vercel 后台配置，不提交到仓库
+
+# Package manager lock files (keep only one)
+# Uncomment the ones you don't use
+# yarn.lock
+package-lock.json
+bun.lockb
+
+# Editor directories and files
+.cursor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Supabase local
+supabase/.temp
+supabase/.branches
+
+# Build analysis
+vite.stats.json
+stats.html
+
+*.mp4

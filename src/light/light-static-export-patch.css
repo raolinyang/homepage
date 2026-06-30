@@ -1,0 +1,161 @@
+/**
+ * Appended after Figma `light-static.css` in the light static export HTML and in LightPreview injected styles.
+ * Replaces the old Figma runtime `layoutFix` script: layout is fully static CSS.
+ *
+ * - Overrides `height:100%` chain from the export bundle so page height follows content.
+ * - Hero: `height: clamp(var(--light-hero-min-h), 100dvh, 968px)` — 矮的中等宽度桌面窗口用安全下限，高视口封顶 968px。
+ * - Container / fig-code-root / light root: same rules previously applied via JS.
+ */
+html,
+body {
+  height: auto !important;
+  min-height: 100dvh !important;
+  overflow-x: hidden !important;
+}
+
+#container,
+#container > .tailwind {
+  height: auto !important;
+  min-height: 100dvh !important;
+}
+
+#container > .tailwind {
+  width: min(100%, 1440px) !important;
+  max-width: 1440px !important;
+  min-width: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+@media (min-width: 1200px) {
+  #container > .tailwind {
+    min-width: 1400px !important;
+  }
+}
+
+#fig-code-root {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+[data-name="light"] {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1440px !important;
+  min-width: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  --light-hero-min-h: 0px;
+}
+
+@media (min-width: 1200px) {
+  [data-name="light"] {
+    min-width: 1400px !important;
+  }
+}
+
+/**
+ * Hero stacking: Figma static bundle omits z-0 / z-[2] / z-[30] — without them, paint order
+ * breaks and satellite tiles cover the headline. Fixed layers via data-* hooks.
+ */
+section[data-name="hero"] {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: clamp(var(--light-hero-min-h, 0px), 100dvh, 968px) !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  aspect-ratio: unset !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  [data-name="light"] {
+    --light-hero-min-h: 880px;
+  }
+}
+
+section[data-name="hero"] [data-hero-collage-root] {
+  z-index: 0 !important;
+}
+
+section[data-name="hero"] [data-hero-doc] {
+  position: relative !important;
+  z-index: 5 !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Bottom-docked prompt card (Frame42): centered */
+section[data-name="hero"] [data-hero-prompt-dock] {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 6 !important;
+  display: flex !important;
+  justify-content: center !important;
+  padding-left: var(--light-gutter, 80px) !important;
+  padding-right: var(--light-gutter, 80px) !important;
+  pointer-events: none !important;
+}
+
+section[data-name="hero"] [data-hero-prompt-dock] > * {
+  pointer-events: auto !important;
+  width: 100% !important;
+  max-width: min(770px, calc(100% - 32px)) !important;
+}
+
+/* 大尺寸（视口 >1440px）：输入框容器底部留白 */
+@media (min-width: 1441px) {
+  section[data-name="hero"] [data-hero-prompt-dock] {
+    padding-bottom: 20px !important;
+  }
+}
+
+section[data-name="hero"] [data-hero-chrome] {
+  z-index: 20 !important;
+}
+
+/* hover:z-[30] is absent from export — keep satellites clickable above neighbors when hovered */
+section[data-name="hero"] [data-hero-tile][data-hero-satellite="1"]:hover {
+  z-index: 30 !important;
+}
+
+/* Case masonry tile outer clip — 12px corners (static export + SPA). */
+[data-light-case-thumb] {
+  border-radius: 12px;
+}
+
+/* Dark canvas: shell wrappers outside `[data-light-page]` (Figma `#container` chain). */
+html[data-mode="dark"][data-light-preview] #container,
+html[data-mode="dark"][data-light-preview] #container > .tailwind,
+html[data-mode="dark"][data-light-preview] [data-light-preview-root] {
+  background-color: var(--viznow-canvas-bg, #111114) !important;
+  color: var(--viznow-canvas-fg, #ffffff) !important;
+}
+
+[data-light-case-thumb-poster],
+[data-light-case-thumb-overlay] video {
+  object-fit: cover;
+}
+
+/* Hover play overlay: opacity crossfade; disable transition when user prefers reduced motion */
+[data-light-case-thumb-overlay] {
+  transition: opacity 110ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-light-case-thumb-overlay] {
+    transition: none;
+  }
+}

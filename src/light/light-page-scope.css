@@ -1,0 +1,142 @@
+/**
+ * Light 页面子树隔离：在 SPA `/light` 下抵消 index.css 的全局暗色主题、#root 高度、字体等；
+ * 在独立 light 静态导出页中提供与 Figma 设计一致的文档色与层叠上下文。
+ * 不使用 * 重置 border-color，以免压过 Tailwind 的 border-* 工具类（避免破坏卡片描边与动画层）。
+ */
+[data-light-page] {
+  container-type: inline-size;
+  container-name: light-page;
+  position: relative;
+  isolation: isolate;
+  color: var(--text-icon-text-icon02, #1d1d1d);
+  background-color: var(--bg-main-1, var(--viznow-canvas-bg, #ffffff));
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* 首屏高度封顶；中等宽度桌面布局会设置安全下限，避免标题换行后和底部 prompt 挤压。 */
+  --light-hero-max-h: 968px;
+  --light-hero-min-h: 0px;
+}
+
+@media (min-width: 1200px) {
+  [data-light-page] {
+    min-width: 1400px;
+  }
+}
+
+[data-light-page],
+[data-light-page] *,
+[data-light-page] *::before,
+[data-light-page] *::after {
+  box-sizing: border-box;
+}
+
+/* 与 Light 内链式样式中的 section[data-name="hero"] 选择器并存，仅补全层叠上下文 */
+[data-light-page] section[data-name="hero"] {
+  position: relative;
+  z-index: 0;
+  box-sizing: border-box;
+  height: clamp(var(--light-hero-min-h), 100dvh, var(--light-hero-max-h));
+  min-height: unset;
+  max-height: unset;
+}
+
+[data-light-page] [data-light-hero-desktop] {
+  display: none !important;
+}
+
+[data-light-page] [data-light-hero-mobile] {
+  display: flex !important;
+}
+
+@media (min-width: 1024px) {
+  [data-light-page] [data-light-hero-desktop] {
+    display: flex !important;
+  }
+
+  [data-light-page] [data-light-hero-mobile] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  [data-light-page] {
+    --light-hero-min-h: 880px;
+  }
+}
+
+/* Hero 左侧大标题：宽屏 72px；视口 ≤1440px 为 60px */
+[data-light-page] [data-hero-headline] {
+  font-size: 70px;
+  transition: font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1440px) {
+  [data-light-page] [data-hero-headline] {
+    font-size: 60px;
+  }
+}
+
+/* 视口 ≤1440px：仅 Hero 内三块容器 zoom（小屏首屏 1434/768；宽屏 1440/905 — aspect-ratio 不受 zoom 拉伸） */
+[data-light-page] section[data-name="hero"] [data-light-hero-zoom] {
+  zoom: 1;
+  transition: zoom 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1440px) {
+  [data-light-page] section[data-name="hero"] [data-light-hero-zoom] {
+    zoom: 0.9;
+  }
+}
+
+/* 不支持 zoom：分区域 transform-origin，尽量贴近 zoom 观感 */
+@supports not (zoom: 1) {
+  [data-light-page] section[data-name="hero"] [data-light-hero-zoom] {
+    transform: scale(1);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (max-width: 1440px) {
+    [data-light-page] section[data-name="hero"] [data-light-hero-zoom="doc"] {
+      transform: scale(0.9);
+      transform-origin: top left;
+    }
+
+    [data-light-page] section[data-name="hero"] [data-light-hero-zoom="collage"] {
+      transform: scale(0.9);
+      transform-origin: top right;
+    }
+
+    [data-light-page] section[data-name="hero"] [data-light-hero-zoom="dock"] {
+      transform: scale(0.9);
+      transform-origin: bottom center;
+    }
+  }
+}
+
+html[data-mode="dark"] [data-light-page] {
+  color: var(--text-icon-text-icon01, #ffffff);
+  background-color: var(--bg-main-1, var(--viznow-canvas-bg, #111114));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-light-page] [data-hero-headline] {
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-light-page] section[data-name="hero"] [data-light-hero-zoom] {
+    transition-duration: 0.01ms !important;
+  }
+}

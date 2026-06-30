@@ -1,0 +1,155 @@
+/**
+ * 设计师色板 — 在祖先节点设置 `data-mode="light"` | `data-mode="dark"` 后使用 `var(--*)`。
+ * 修正：稿中 `gary` → `gray`；重复属性名拆分为 `text-icon05`、`line-line02/03`。
+ */
+
+/* 无 data-mode 的子树（旧页、部分 Portal）仍可解析品牌色 */
+:root {
+  --bg-main-1: #ffffff;
+  --primary-blue: #2466ffff;
+  --special-white: #ffffffff;
+  --special-dark: #111114ff;
+  /* 无 data-mode 页面（如 Chat）回退：与 light 语义接近 */
+  --text-icon-text-icon01: #111114ff;
+  --text-icon-text-icon02: #454950ff;
+  --text-icon-text-icon03: #717680ff;
+  --text-icon-text-icon04: #8e929bff;
+  --text-icon-text-icon05: #aaadb5ff;
+  /* pillSoft 在未挂 data-mode 的树中回退为浅色药丸 */
+  --home-credits-pill-bg: #e8ebf7ff;
+  --home-credits-pill-bg-hover: #dfe4f3ff;
+  --home-credits-pill-foreground: var(--primary-blue);
+  --home-credits-pill-accent: var(--primary-blue);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="light"]) {
+    --bg-main-1: #111114ff;
+    --text-icon-text-icon01: #ffffffff;
+  }
+}
+
+[data-mode="dark"] {
+  --special-white: #ffffffff;
+  --special-dark: #111114ff;
+  --primary-white: #ffffffff;
+  --primary-blue: #2466ffff;
+  --primary-green: #32b93bff;
+  --primary-yellow: #ffab2eff;
+  --primary-red: #ff3838ff;
+
+  --gray-100: #111114ff;
+  --gray-200: #15161aff;
+  --gray-300: #191a21ff;
+  --gray-400: #1d1f26ff;
+  --gray-500: #212329ff;
+  --gray-600: #2a2d34ff;
+  --gray-700: #34373fff;
+  --gray-800: #3f424aff;
+  --gray-900: #4a4d55ff;
+  --gray-920: #666970ff;
+  --gray-940: #85888fff;
+  --gray-960: #92959cff;
+  --gray-980: #d6d7dbff;
+  --gray-990: #ffffffff;
+
+  --text-icon-text-icon01: var(--gray-990);
+  --text-icon-text-icon02: var(--gray-980);
+  --text-icon-text-icon03: var(--gray-960);
+  --text-icon-text-icon04: var(--gray-940);
+  --text-icon-text-icon05: var(--gray-920);
+
+  --fill-fill01: var(--gray-300);
+  --fill-fill02: var(--gray-500);
+  --surface-base: var(--gray-100);
+  --surface-subtle: var(--gray-200);
+  --surface-secondary: var(--gray-500);
+  --surface-default: var(--gray-300);
+  --surface-raised: var(--gray-400);
+  --surface-elevated: var(--gray-400);
+  --surface-overlay: #00000099;
+
+  --line-line: var(--gray-600);
+  --line-line02: var(--gray-700);
+  --line-line03: var(--gray-900);
+  --line-line04: var(--gray-900);
+
+  --bg-main-1: var(--gray-100);
+  --bg-main-2: var(--gray-200);
+  --bg-main-3: var(--gray-300);
+  --bg-main-4: var(--gray-400);
+
+  --primary-special-2: #ffffffff;
+
+  /* /home Credits pill（深色顶栏参考稿：深蓝底 + 白字 + 蓝闪电） */
+  --home-credits-pill-bg: var(--gray-400);
+  --home-credits-pill-bg-hover: var(--gray-500);
+  --home-credits-pill-foreground: var(--gray-990);
+  --home-credits-pill-accent: var(--primary-blue);
+}
+
+[data-mode="light"] {
+  --special-white: #ffffffff;
+  --special-dark: #111114ff;
+  --primary-white: #111114ff;
+  --primary-blue: #2466ffff;
+  --primary-green: #32b93bff;
+  --primary-yellow: #ffab2eff;
+  --primary-red: #ff3838ff;
+
+  --gray-100: #ffffffff;
+  --gray-200: #f7f7f9ff;
+  --gray-300: #efeff1ff;
+  --gray-400: #d6d7dbff;
+  --gray-500: #c2c4caff;
+  --gray-600: #aaadb5ff;
+  --gray-700: #8e929bff;
+  --gray-800: #717680ff;
+  --gray-900: #555962ff;
+  --gray-920: #454950ff;
+  --gray-940: #2f3339ff;
+  --gray-960: #24272cff;
+  --gray-980: #1a1c20ff;
+  --gray-990: #111114ff;
+
+  --text-icon-text-icon01: var(--primary-white);
+  --text-icon-text-icon02: var(--gray-920);
+  --text-icon-text-icon03: var(--gray-800);
+  --text-icon-text-icon04: var(--gray-700);
+  --text-icon-text-icon05: var(--gray-600);
+
+  --fill-fill01: var(--gray-100);
+  --fill-fill02: var(--gray-300);
+  --surface-base: var(--gray-100);
+  --surface-subtle: var(--gray-200);
+  --surface-secondary: var(--gray-300);
+  --surface-default: var(--gray-100);
+  --surface-raised: var(--gray-300);
+  --surface-elevated: var(--gray-100);
+  --surface-overlay: #000000cc;
+
+  --line-line: var(--gray-400);
+  --line-line02: var(--gray-500);
+  --line-line03: var(--gray-600);
+  --line-line04: var(--gray-300);
+
+  --bg-main-1: var(--gray-100);
+  --bg-main-2: var(--gray-200);
+  --bg-main-3: var(--gray-300);
+  --bg-main-4: var(--gray-400);
+
+  --primary-special-2: #ffffffff;
+
+  /* /home Credits pill（浅色：淡蓝底 + 品牌蓝字/图标） */
+  --home-credits-pill-bg: #e8ebf7ff;
+  --home-credits-pill-bg-hover: #dfe4f3ff;
+  --home-credits-pill-foreground: var(--primary-blue);
+  --home-credits-pill-accent: var(--primary-blue);
+}
+
+/* 与 html[data-mode] 同步整页画布（覆盖 index.css 中 body 默认写死深色） */
+html[data-mode="light"] body,
+html[data-mode="dark"] body {
+  background-color: var(--bg-main-1);
+  color: var(--text-icon-text-icon01);
+}

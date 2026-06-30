@@ -1,0 +1,6 @@
+/**
+ * Tailwind v3 utilities only (no preflight) — supplements Figma v4 `light-static.css`
+ * for classes that exist in SPA via `index.css` but are absent from the v4 bundle.
+ * Built by: npm run build:light:tw3
+ */
+@tailwind utilities;

@@ -1,0 +1,52 @@
+/**
+ * First-paint page canvas — values mirror `design-tokens.css` `--bg-main-1` / `--text-icon-text-icon01`.
+ * Inlined in HTML entrypoints; also imported via `index.css` after tokens load.
+ */
+
+:root {
+  --viznow-canvas-bg: #ffffff;
+  --viznow-canvas-fg: #111114;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="light"]) {
+    --viznow-canvas-bg: #111114;
+    --viznow-canvas-fg: #ffffff;
+    color-scheme: dark;
+  }
+}
+
+html[data-mode="light"] {
+  --viznow-canvas-bg: #ffffff;
+  --viznow-canvas-fg: #111114;
+  color-scheme: light;
+}
+
+html[data-mode="dark"] {
+  --viznow-canvas-bg: #111114;
+  --viznow-canvas-fg: #ffffff;
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--viznow-canvas-bg);
+  color: var(--viznow-canvas-fg);
+}
+
+#root {
+  background-color: var(--viznow-canvas-bg);
+}
+
+/* React Suspense / route fallbacks — must not flash light canvas in dark mode */
+.viznow-route-loading {
+  display: flex;
+  min-height: 50vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--viznow-canvas-bg);
+  color: var(--viznow-canvas-fg);
+  font-size: 0.875rem;
+}
