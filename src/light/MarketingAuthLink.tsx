@@ -12,6 +12,12 @@ type MarketingAuthLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "hre
   showAvatarWhenAuthenticated?: boolean;
 };
 
+function withNoFollow(rel: string | undefined): string {
+  const tokens = new Set((rel ?? "").split(/\s+/).filter(Boolean));
+  tokens.add("nofollow");
+  return Array.from(tokens).join(" ");
+}
+
 function getCurrentMarketingReturnTo(): string | undefined {
   return typeof window === "undefined" ? resolveStaticUrl("/") : window.location.href;
 }
@@ -24,16 +30,19 @@ export function MarketingAuthLink({
   desktopDisplayClassName = "hidden min-[768px]:inline-flex",
   mobileDisplayClassName = "inline-flex min-[768px]:hidden",
   showAvatarWhenAuthenticated: _showAvatarWhenAuthenticated = false,
+  rel,
   ...props
 }: MarketingAuthLinkProps) {
   const mobileSignInHref = buildMarketingMobileSignInUrl(undefined, getCurrentMarketingReturnTo());
   const desktopLinkClassName = cn(className, desktopClassName, desktopDisplayClassName);
   const mobileLinkClassName = cn(className, mobileClassName, mobileDisplayClassName);
+  const linkRel = withNoFollow(rel);
 
   return (
     <>
       <a
         href={MARKETING_APP_SIGN_IN_URL}
+        rel={linkRel}
         className={desktopLinkClassName}
         {...props}
       >
@@ -41,6 +50,7 @@ export function MarketingAuthLink({
       </a>
       <a
         href={mobileSignInHref}
+        rel={linkRel}
         className={mobileLinkClassName}
         {...props}
       >

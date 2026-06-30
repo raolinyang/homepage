@@ -51,7 +51,7 @@ export function LightMarketingFooter({ variant = "theme" }: LightMarketingFooter
               <div className="relative flex min-h-px w-full min-w-px flex-col items-start gap-8 min-[640px]:flex-row min-[640px]:gap-[40px] min-[900px]:flex-[1_0_0] min-[900px]:justify-end">
                 <div className="content-stretch relative flex w-[180px] shrink-0 flex-col items-start gap-[32px]">
                   <p className={mutedClass}>Community</p>
-                  <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  <a href={DISCORD_INVITE_URL} target="_blank" rel="nofollow noopener noreferrer" className={linkClass}>
                     Join our Discord
                   </a>
                 </div>
